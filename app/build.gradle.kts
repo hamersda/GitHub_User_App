@@ -54,4 +54,11 @@ dependencies {
 
     //Gson
     implementation("com.google.code.gson:gson:2.9.1")
+
+    //Avatar View
+//    implementation("io.getstream:avatarview-coil:1.0.4")
+    implementation("com.github.siyamed:android-shape-imageview:0.9.+@aar")
+
+    //search bar
+
 }
