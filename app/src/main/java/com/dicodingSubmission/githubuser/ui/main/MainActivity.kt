@@ -3,21 +3,17 @@ package com.dicodingSubmission.githubuser.ui.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicodingSubmission.githubuser.data.model.User
 import com.dicodingSubmission.githubuser.databinding.ActivityMainBinding
 import com.dicodingSubmission.githubuser.ui.detail.DetailUserActivity
-import com.dicodingSubmission.githubuser.ui.detail.DetailUserViewModel
-
 
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
-    private lateinit var detailUserViewModel: DetailUserViewModel
     private lateinit var adapter: UserAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,9 +21,34 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
+
+        viewModel.isLoading.observe(this) {
+            showLoading(it)
+        }
         adapter = UserAdapter()
         adapter.notifyDataSetChanged()
 
+        binding.apply{
+            rvUser.layoutManager = LinearLayoutManager(this@MainActivity)
+            rvUser.setHasFixedSize(true)
+            rvUser.adapter = adapter
+        }
+
+        with(binding){
+            searchView.setupWithSearchBar(searchBar)
+            searchView
+                .editText
+                .setOnEditorActionListener { textView, actionId, event ->
+                    searchBar.text = searchView.text
+                    searchView.hide()
+                    Toast.makeText(this@MainActivity, searchView.text, Toast.LENGTH_SHORT).show()
+                    viewModel.setSearchUsers(searchBar.text.toString())
+                    false
+                }
+        }
+
+        //Move to Detail User Activity
         adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback{
             override fun onItemClicked(data: User) {
                 Intent(this@MainActivity, DetailUserActivity::class.java).also {
@@ -37,25 +58,6 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
-
-        binding.apply{
-            rvUser.layoutManager = LinearLayoutManager(this@MainActivity)
-            rvUser.setHasFixedSize(true)
-            rvUser.adapter = adapter
-
-            btnSearch.setOnClickListener{
-                searchUser()
-            }
-
-            etQuery.setOnKeyListener{ v, keyCode, event ->
-                if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER){
-                    searchUser()
-                    return@setOnKeyListener true
-                }
-                return@setOnKeyListener false
-            }
-        }
         viewModel.getSearchUsers().observe(this, {
             if(it!=null){
                 adapter.setList(it)
@@ -63,22 +65,11 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
-
-    private fun searchUser(){
-        binding.apply{
-            val query = etQuery.text.toString()
-            if (query.isEmpty()) return
-            showLoading(true)
-            viewModel.setSearchUsers(query)
-        }
-    }
-
     private fun showLoading(state: Boolean){
         if (state){
             binding.progressBar.visibility = View.VISIBLE
         }else{
             binding.progressBar.visibility = View.GONE
         }
-
     }
 }

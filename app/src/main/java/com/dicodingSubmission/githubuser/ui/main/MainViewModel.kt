@@ -12,10 +12,14 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MainViewModel : ViewModel() {
+    private val _listUsers = MutableLiveData<List<User>>()
+    val listUsers:LiveData<List<User>> = _listUsers
 
-    val listUsers = MutableLiveData<ArrayList<User>>()
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> = _isLoading
 
     fun setSearchUsers(query: String){
+        _isLoading.value = true
         RetrofitClient.apiInstance
             .getSearchUsers(query)
             .enqueue(object : Callback<UserResponse> {
@@ -24,17 +28,20 @@ class MainViewModel : ViewModel() {
                     response: Response<UserResponse>
                 ) {
                     if (response.isSuccessful){
-                        listUsers.postValue(response.body()?.items)
+                        Log.d("MainViewModel", "Data response: ${response.body()?.items}")
+                        _listUsers.value = response.body()?.items
                     }
+                    _isLoading.value = false
                 }
 
                 override fun onFailure(call: Call<UserResponse>, t: Throwable) {
                     Log.d("Failure", t.message!!)
+                    _isLoading.value = true
                 }
 
             })
     }
-    fun getSearchUsers():LiveData<ArrayList<User>>{
+    fun getSearchUsers(): LiveData<List<User>> {
         return listUsers
     }
 }
