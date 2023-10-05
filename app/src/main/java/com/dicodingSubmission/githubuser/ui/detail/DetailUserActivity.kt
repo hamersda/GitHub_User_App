@@ -2,6 +2,7 @@ package com.dicodingSubmission.githubuser.ui.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
@@ -26,7 +27,7 @@ class DetailUserActivity : AppCompatActivity() {
         bundle.putString(EXTRA_USERNAME, username)
 
         viewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(DetailUserViewModel::class.java)
-
+        showLoading(true)
         if (username != null) {
             viewModel.setUserDetail(username)
         }
@@ -42,6 +43,7 @@ class DetailUserActivity : AppCompatActivity() {
                         .transition(DrawableTransitionOptions.withCrossFade())
                         .centerCrop()
                         .into(ivProfile)
+                    showLoading(false)
                 }
         })
 
@@ -49,6 +51,13 @@ class DetailUserActivity : AppCompatActivity() {
         binding.apply {
             viewPager.adapter = sectionPagerAdapter
             tabs.setupWithViewPager(viewPager)
+        }
+    }
+    private fun showLoading(state: Boolean){
+        if (state){
+            binding.progressBar.visibility = View.VISIBLE
+        }else{
+            binding.progressBar.visibility = View.GONE
         }
     }
 }
