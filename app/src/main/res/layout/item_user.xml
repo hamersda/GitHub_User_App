@@ -8,7 +8,7 @@
     android:background="@drawable/rv_border">
 
     <com.github.siyamed.shapeimageview.RoundedImageView
-        android:id="@+id/iv_item_avatar"
+        android:id="@+id/iv_user"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginRight="18dp"
@@ -20,67 +20,68 @@
         app:siSquare="true"/>
 
     <TextView
-        android:id="@+id/tv_item_name"
+        android:id="@+id/tv_username"
         style="@style/TextViewChild"
-        android:layout_toRightOf="@+id/iv_item_avatar"
-        android:text="@string/user"
+        android:layout_toRightOf="@+id/iv_user"
+        android:text="@string/username"
         android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="@android:color/holo_green_light"
-        android:layout_toEndOf="@+id/iv_item_avatar"
-        android:layout_marginBottom="1dp"/>
-
-    <ImageView
-        android:id="@+id/iv_item_username"
-        android:layout_width="16dp"
-        android:layout_height="18dp"
-        android:layout_marginRight="2dp"
-        android:src="@drawable/ic_username"
-        android:layout_below="@id/tv_item_name"
-        android:layout_toEndOf="@+id/iv_item_avatar"
-        android:layout_toRightOf="@+id/iv_item_avatar"
-        android:layout_marginEnd="2dp" />
-
-    <TextView
-        android:id="@+id/tv_item_username"
-        style="@style/TextViewChild"
-        android:layout_below="@id/tv_item_name"
-        android:layout_toEndOf="@+id/iv_item_username"
-        android:layout_toRightOf="@+id/iv_item_username"
-        android:text="@string/username"
-        android:maxLines="1"/>
-
-    <ImageView
-        android:id="@+id/iv_item_followers"
-        android:layout_width="16dp"
-        android:layout_height="18sp"
-        android:layout_marginRight="2dp"
-        android:layout_below="@id/tv_item_username"
-        android:layout_toEndOf="@+id/iv_item_avatar"
-        android:layout_toRightOf="@+id/iv_item_avatar"
-        android:src="@drawable/ic_followers"
-        android:layout_marginEnd="2dp" />
-
-    <TextView
-        android:id="@+id/tv_item_followers"
-        style="@style/TextViewChild"
-        android:layout_below="@id/tv_item_username"
-        android:layout_toEndOf="@+id/iv_item_followers"
-        android:layout_toRightOf="@+id/iv_item_followers"
-        android:text="@string/followers"
+        android:layout_toEndOf="@+id/iv_user"
         android:layout_marginBottom="1dp"
-        android:maxLines="1"/>
+        android:layout_centerInParent="true"/>
 
-    <Button
-        android:id="@+id/btn_share"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_item_followers"
-        android:layout_toEndOf="@+id/iv_item_avatar"
-        android:layout_toRightOf="@+id/iv_item_avatar"
-        android:drawableStart="@drawable/ic_action_share"
-        android:drawableLeft="@drawable/ic_action_share"
-        android:text="@string/share"
-        android:textSize="12sp" />
+<!--    <ImageView-->
+<!--        android:id="@+id/iv_item_username"-->
+<!--        android:layout_width="16dp"-->
+<!--        android:layout_height="18dp"-->
+<!--        android:layout_marginRight="2dp"-->
+<!--        android:src="@drawable/ic_username"-->
+<!--        android:layout_below="@id/tv_name"-->
+<!--        android:layout_toEndOf="@+id/iv_user"-->
+<!--        android:layout_toRightOf="@+id/iv_user"-->
+<!--        android:layout_marginEnd="2dp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_username"-->
+<!--        style="@style/TextViewChild"-->
+<!--        android:layout_below="@id/tv_name"-->
+<!--        android:layout_toEndOf="@+id/iv_item_username"-->
+<!--        android:layout_toRightOf="@+id/iv_item_username"-->
+<!--        android:text="@string/username"-->
+<!--        android:maxLines="1"/>-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/iv_item_followers"-->
+<!--        android:layout_width="16dp"-->
+<!--        android:layout_height="18sp"-->
+<!--        android:layout_marginRight="2dp"-->
+<!--        android:layout_below="@id/tv_username"-->
+<!--        android:layout_toEndOf="@+id/iv_user"-->
+<!--        android:layout_toRightOf="@+id/iv_user"-->
+<!--        android:src="@drawable/ic_people"-->
+<!--        android:layout_marginEnd="2dp" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/tv_followers"-->
+<!--        style="@style/TextViewChild"-->
+<!--        android:layout_below="@id/tv_username"-->
+<!--        android:layout_toEndOf="@+id/iv_item_followers"-->
+<!--        android:layout_toRightOf="@+id/iv_item_followers"-->
+<!--        android:text="@string/followers"-->
+<!--        android:layout_marginBottom="1dp"-->
+<!--        android:maxLines="1"/>-->
+
+<!--    <Button-->
+<!--        android:id="@+id/btn_share"-->
+<!--        style="@style/Widget.AppCompat.Button.Colored"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/tv_followers"-->
+<!--        android:layout_toEndOf="@+id/iv_user"-->
+<!--        android:layout_toRightOf="@+id/iv_user"-->
+<!--        android:drawableStart="@drawable/ic_action_share"-->
+<!--        android:drawableLeft="@drawable/ic_action_share"-->
+<!--        android:text="@string/share"-->
+<!--        android:textSize="12sp" />-->
 </RelativeLayout>
